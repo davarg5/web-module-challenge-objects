@@ -81,8 +81,8 @@ and should return a string in the format `{name} gave the restaurant a {rating},
  * For example, if getReviewByIndex is invoked with reviews and the number 0
  * it will return `Daniela gave the restaurant a 5 star review and their feedback was: Beautiful atmosphere and wonderful vegan options!`
 */
-function getReviewByIndex(reviews, index) {
-    return reviews[index].name+' gave the restaurant a '+reviews[index].rating+' star review and their feedback was: '+reviews[index].feedback;
+function getReviewByIndex(list, index) {
+    return list[index].name+' gave the restaurant a '+list[index].rating+' star review and their feedback was: '+list[index].feedback;
   }
   
 console.log(getReviewByIndex(reviews, 3));
@@ -97,10 +97,12 @@ and should return a string in the format `name} gave the restaurant a {rating}, 
 
 For example, if getLastReview is invoked passing the reviews array it will return `Reyna gave the restaurant a 3.5 star review and their feedback was: "this place is chill with really cool people, great for getting work done on weekdays"`.
 */
-function getLastReview(/* code here */) {
-    /* code here */
-  } 
+function getLastReview(list) 
+{
+  return list[list.length-1].name+' gave the restaurant a '+list[list.length-1].rating+' star review and their feedback was: '+list[list.length-1].feedback; 
+} 
 
+console.log(getLastReview(reviews));
 
 ///////////////🍔☕️🍽 STRETCH🍔☕️🍽////////////////////
 
@@ -116,10 +118,20 @@ function getLastReview(/* code here */) {
     {name:"Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay."}]
 */
 
- function getReviewByRating(/* code here */) {
-    /* code here */
+ function getReviewByRating(list, num) 
+ {
+    let newArr = [];
+    for(let i=0; i<list.length; i++)
+    {
+      if(list[i].rating > (num-1) && list[i].rating < (num+1))
+      {
+        newArr.push(list[i]);
+      }
+    }
+    return newArr;
   }
 
+console.log(getReviewByRating(reviews,4));
   
 /** STRETCH 2: Write a function called 'getLongestReview' that returns an array containing all reviews longer than 15 words. 
   
@@ -134,9 +146,28 @@ and should return an array of objects.
     {name: "Brett", rating: 3, feedback: "great selection of snacks and a nice cafe area to get work done during the day."},
     {name: "Julius", rating: 2, feedback: "I was largely unimpressed by this venue. Nothing special on the menu and too expensive. The atmosphere is polarizing, and not for me, but I think some would like it." }]
 */
-  function getLongReviews(/* code here */) {
-    /* code here */
+  function getLongReviews(list) {
+    let newArr = [];
+    for(let i=0; i<list.length; i++)
+    {
+        let x = 1;
+        for(let j=0; j<list[i].feedback.length;j++)
+        {
+            if(list[i].feedback.charAt(j) === " ")
+            {
+                x++;
+            }
+        }
+        if(x>15)
+        {
+          newArr.push(list[i]);
+        }
+        
+    }
+    return newArr;
   }
+
+  console.log(getLongReviews(reviews));
   
 
 /* STRETCH 3:  This challenge is not related to the data above! 
@@ -157,7 +188,18 @@ The returned object should have the following characteristics:
 */
 
 
-function carMaker(/* code here */) {
-    /* code here */
-    
+function carMaker(num) 
+{
+    const obj = {
+      odometer: num,
+      drive: function(dist){
+        this.odometer += dist;
+        return this.odometer;
+      }
+    }
+    return obj;
 }
+
+const mercedes = carMaker(2000);
+console.log(mercedes);
+console.log(mercedes.drive(50));
